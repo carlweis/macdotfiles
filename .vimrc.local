@@ -1,0 +1,83 @@
+" visuals
+syntax enable
+syntax on
+set background=dark
+colorscheme base16-railscasts
+set guifont=Menlo\ Regular:h18
+
+highlight clear SignColumn
+highlight VertSplit    ctermbg=236
+highlight ColorColumn  ctermbg=237
+highlight LineNr       ctermbg=236 ctermfg=240
+highlight CursorLineNr ctermbg=236 ctermfg=240
+highlight CursorLine   ctermbg=236
+highlight StatusLineNC ctermbg=238 ctermfg=0
+highlight StatusLine   ctermbg=240 ctermfg=12
+highlight IncSearch    ctermbg=3   ctermfg=1
+highlight Search       ctermbg=1   ctermfg=3
+highlight Visual       ctermbg=3   ctermfg=0
+highlight Pmenu        ctermbg=240 ctermfg=12
+highlight PmenuSel     ctermbg=3   ctermfg=1
+highlight SpellBad     ctermbg=0   ctermfg=1
+
+" airline
+set laststatus=2
+let g:airline_theme = "hybrid"
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+
+" git
+nmap <Leader>gi :!git init<cr>
+nmap <Leader>ga :!git add -A<cr><cr>
+nmap <Leader>gc :!git commit -am'
+nmap <Leader>gco :!git checkout<space>
+nmap <Leader>gcb :!git checkout -b<space>
+nmap <Leader>gs :!git status<cr>
+nmap <Leader>gl :!git log<cr>
+nmap <Leader>gm :!git merge<space>
+nmap <Leader>gp :!git push -u<space>
+nmap <Leader>gpa :!git push --all<cr>
+nmap <Leader>grb :!git rebase<space>
+nmap <Leader>grh :!git reset HEAD<space>
+nmap <Leader>gpp :!git pull --rebase && git push<cr>
+
+" CtrlP
+let g:ctrlp_custom_ignore = 'node_modules\DS_Store\|git'
+
+"Automatically source the Vimrc file on save.
+augroup autosourcing
+	autocmd!
+  autocmd BufWritePost .vimrc.local source %
+
+"automatically reblance windows on vim resize
+autocmd VimREsized * :wincmd =
+
+"zoom a vim pane, <C-w>= to re-balance
+noremap <leader>- :wincmd _<cr>:wincmd \|<cr>
+noremap <leader>= :wincmd =<cr>
+
+"tmux runner
+
+let g:VtrUseVtrMaps = 1
+let g:VtrGitCdUpOnOpen = 0
+let g:VtrPercentage = 30
+
+nmap <leader>fs :VtrFlushCommand<cr>:VtrSendCommandToRunner<cr>
+nmap <C-f> :VtrSendLinesToRunner<cr>
+vmap <C-f> :VtrSendLinesToRunner<cr>
+
+nmap <leader>osr :VtrOpenRunner { 'orientation': 'h', 'percentage': 50 }<cr>
+nmap <leader>opr :VtrOpenRunner { 'orientation': 'h', 'percentage': 50, 'cmd': 'pry' }<cr>
+nnoremap <leader>irb :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'irb'}<cr>
+nnoremap <leader>rc :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'rails c'}<cr>
+
+" rspec
+let g:rspec_command = "call VtrSendCommand('rspec {spec}')"
+
+nnoremap <leader>sd :VtrSendCtrlD<cr>
+nnoremap <leader>sq :VtrSendCommandToRunner q<cr>
+nnoremap <leader>sl :VtrSendCommandToRunner FF<cr>
+
+" Ctrl-S to save
+inoremap <C-s> <esc>:w<cr>a
+inoremap <C-s> :w<cr>a
